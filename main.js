@@ -2,6 +2,7 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 
+require('prototype.creep');
 
 var spawn = require('spawn');
 
@@ -31,8 +32,8 @@ let runCreeps = () => {
 
 module.exports.loop = function () {
     cleanMemory();
-    
+
     spawn(Game.spawns['Spawn1']);
-    
+
     runCreeps();
 }
