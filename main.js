@@ -1,39 +1,30 @@
-var roleHarvester = require('role.harvester');
-var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
-
 require('prototype.creep');
-
-var spawn = require('spawn');
+require('prototype.spawn');
 
 let cleanMemory = () => {
-    for(var name in Memory.creeps) {
-        if(!Game.creeps[name]) {
+    for (var name in Memory.creeps) {
+        if (!Game.creeps[name]) {
             delete Memory.creeps[name];
-            console.log('Clearing non-existing creep memory:', name);
         }
     }
 };
 
 let runCreeps = () => {
-    for(var name in Game.creeps) {
-        var creep = Game.creeps[name];
-        if(creep.memory.role == roleHarvester.ROLE) {
-            roleHarvester.run(creep);
-        }
-        if(creep.memory.role == roleUpgrader.ROLE) {
-            roleUpgrader.run(creep);
-        }
-        if(creep.memory.role == roleBuilder.ROLE) {
-            roleBuilder.run(creep);
-        }
+    for (let name in Game.creeps) {
+        Game.creeps[name].runRole();
+    }
+};
+
+let runSpawns = () => {
+    for (let spawnName in Game.spawns) {
+        Game.spawns[spawnName].spawnCreeps();
     }
 };
 
 module.exports.loop = function () {
     cleanMemory();
 
-    spawn(Game.spawns['Spawn1']);
-
     runCreeps();
+
+    runSpawns();
 }

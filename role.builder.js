@@ -1,40 +1,22 @@
-const ROLE = 'BUILDER';
+var upgrade = require('role.upgrader');
 
-var roleBuilder = {
-    ROLE: ROLE,
-    
-    create: () => {
-        return { 
-            body: [WORK,CARRY,MOVE],
-            name: ROLE + Game.time,
-            options: {memory: {role: ROLE}}
-        };
-    },
+module.exports = function (creep) {
+    creep.setState();
 
-    /** @param {Creep} creep **/
-    run: function(creep) {
-
-        if(creep.memory.building && creep.carry.energy == 0) {
-            creep.memory.building = false;
-            creep.say('🔄 harvest');
-        }
-        if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
-            creep.memory.building = true;
-            creep.say('🚧 build');
-        }
-
-        if(creep.memory.building) {
-            var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-            if(targets.length) {
-                if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
-                }
+    if (creep.memory.working == true) {
+        var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+        if (constructionSite != undefined) {
+            if (creep.build(constructionSite) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(constructionSite);
             }
+        } else {
+            upgrade(creep, {
+                visualizePathStyle: {
+                    stroke: '#191970'
+                }
+            });
         }
-        else {
-            creep.getEnergy();
-        }
+    } else {
+        creep.getEnergy();
     }
 };
-
-module.exports = roleBuilder;
