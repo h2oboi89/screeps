@@ -20,7 +20,7 @@ StructureSpawn.prototype.spawnCreeps = function () {
 };
 
 StructureSpawn.prototype.buildCreep = function (energy, role) {
-    var numberOfParts = Math.min(Math.floor(energy / 200), Math.floor(50 / 3));
+    var numberOfParts = Math.min(Math.floor(energy / 300), Math.floor(50 / 3));
 
     var body = [];
 

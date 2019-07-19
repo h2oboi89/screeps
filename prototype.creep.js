@@ -1,15 +1,21 @@
 const ROLES = require('role');
 let roles = {};
 
+const CHATTY = false;
+
 for (let role of ROLES) {
     roles[role.name] = require('role.' + role.name);
 }
 
-// console.log(JSON.stringify(roles));
-
 Creep.prototype.runRole = function () {
     roles[this.memory.role](this);
 };
+
+Creep.prototype.talk = function (text) {
+    if (CHATTY) {
+        this.say(text);
+    }
+}
 
 Creep.prototype.getEnergy = function (useContainer = true) {
     let container;
@@ -27,13 +33,10 @@ Creep.prototype.getEnergy = function (useContainer = true) {
         }
     } else {
         var source = this.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+        this.talk('⛏️');
 
         if (this.harvest(source) == ERR_NOT_IN_RANGE) {
-            this.moveTo(source, {
-                visualizePathStyle: {
-                    stroke: '#fef65b'
-                }
-            });
+            this.moveTo(source);
         }
     }
 };

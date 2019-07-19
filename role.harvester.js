@@ -17,13 +17,9 @@ module.exports = function (creep) {
         }
 
         if (structure != undefined) {
-            // creep.say('store');
+            creep.talk('🔋');
             if (creep.transfer(structure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(structure, {
-                    visualizePathStyle: {
-                        stroke: '#fff68f'
-                    }
-                });
+                creep.moveTo(structure);
             }
         } else {
             upgrade(creep);

@@ -9,12 +9,9 @@ module.exports = function (creep) {
         });
 
         if (structure != undefined) {
+            creep.talk('🔨');
             if (creep.repair(structure) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(structure, {
-                    visualizePathStyle: {
-                        stroke: '#fa368f'
-                    }
-                });
+                creep.moveTo(structure);
             }
         }
         else {
