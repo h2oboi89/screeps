@@ -1,6 +1,10 @@
 const ROLES = require('role');
 
 StructureSpawn.prototype.spawnCreeps = function () {
+    if (this.spawning !== null) {
+        return;
+    }
+
     let room = this.room;
 
     let creeps = room.find(FIND_MY_CREEPS);
@@ -10,6 +14,7 @@ StructureSpawn.prototype.spawnCreeps = function () {
 
         if (count < role.limit) {
             this.buildCreep(this.room.energyAvailable, role.name);
+            break;
         }
     }
 };
@@ -31,8 +36,10 @@ StructureSpawn.prototype.buildCreep = function (energy, role) {
         body.push(MOVE);
     }
 
-    return this.createCreep(body, role + Game.time, {
-        role: role,
-        working: false
+    return this.spawnCreep(body, role + Game.time, {
+        memory: {
+            role: role,
+            working: false
+        }
     });
 }

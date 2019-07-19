@@ -11,11 +11,15 @@ Creep.prototype.runRole = function () {
     roles[this.memory.role](this);
 };
 
-Creep.prototype.getEnergy = function () {
-    let container = this.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: s => (s.structureType == STRUCTURE_CONTAINER || s.structureType == STRUCTURE_STORAGE) &&
-            s.store[RESOURCE_ENERGY] > 0
-    });
+Creep.prototype.getEnergy = function (useContainer = true) {
+    let container;
+
+    if (useContainer) {
+        container = this.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: s => (s.structureType == STRUCTURE_CONTAINER || s.structureType == STRUCTURE_STORAGE) &&
+                s.store[RESOURCE_ENERGY] > 0
+        });
+    }
 
     if (container != undefined) {
         if (this.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {

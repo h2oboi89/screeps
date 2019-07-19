@@ -7,4 +7,7 @@ module.exports = [{
 }, {
     name: 'builder',
     limit: 4
+}, {
+    name: 'repairer',
+    limit: 2
 }];
