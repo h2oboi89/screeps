@@ -19,6 +19,21 @@ StructureSpawn.prototype.spawnCreeps = function () {
     }
 };
 
+StructureSpawn.prototype.createClaimer = function (target) {
+    let role = 'claimer';
+
+    this.spawnCreep(
+        [MOVE, CLAIM],
+        role + Game.time,
+        {
+            memory: {
+                role: role,
+                target: target
+            }
+        }
+    );
+}
+
 StructureSpawn.prototype.buildCreep = function (energy, role) {
     var numberOfParts = Math.min(Math.floor(energy / 200), Math.floor(50 / 3));
 
@@ -36,10 +51,13 @@ StructureSpawn.prototype.buildCreep = function (energy, role) {
         body.push(MOVE);
     }
 
-    return this.spawnCreep(body, role + Game.time, {
-        memory: {
-            role: role,
-            working: false
+    return this.spawnCreep(
+        body,
+        role + Game.time, {
+            memory: {
+                role: role,
+                working: false
+            }
         }
-    });
+    );
 }
