@@ -16,6 +16,12 @@ Creep.prototype.talk = function (text) {
         this.say(text);
     }
 }
+Creep.prototype.getOffRoomEdge = function () {
+    if (this.pos.x * this.pos.y === 0 || this.pos.x === 49 || this.pos.y === 49) {
+        console.log('move off edge');
+        this.moveTo(new RoomPosition(25, 25, this.room));
+    }
+}
 
 Creep.prototype.getEnergy = function (useContainer = true) {
     let container;

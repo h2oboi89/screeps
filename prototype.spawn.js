@@ -13,7 +13,17 @@ StructureSpawn.prototype.spawnCreeps = function () {
         let count = _.sum(creeps, (c) => c.memory.role == role.name);
 
         if (count < role.limit) {
-            this.buildCreep(this.room.energyAvailable, role.name);
+            switch (role.name) {
+                case 'claimer':
+                    if (this.memory.claimRoom !== undefined) {
+                        this.createClaimer(this.memory.claimRoom);
+                    }
+                    break;
+                default:
+                    this.buildCreep(this.room.energyAvailable, role.name);
+                    break;
+            }
+            // this.buildCreep(this.room.energyAvailable, role.name);
             break;
         }
     }
@@ -22,7 +32,7 @@ StructureSpawn.prototype.spawnCreeps = function () {
 StructureSpawn.prototype.createClaimer = function (target) {
     let role = 'claimer';
 
-    this.spawnCreep(
+    let result = this.spawnCreep(
         [MOVE, CLAIM],
         role + Game.time,
         {
@@ -32,6 +42,10 @@ StructureSpawn.prototype.createClaimer = function (target) {
             }
         }
     );
+
+    if (result == OK) {
+        this.memory.claimRoom = undefined;
+    }
 }
 
 StructureSpawn.prototype.buildCreep = function (energy, role) {

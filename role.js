@@ -12,5 +12,5 @@ module.exports = [{
     limit: 2
 }, {
     name: 'claimer',
-    limit: 0
+    limit: 1
 }];
