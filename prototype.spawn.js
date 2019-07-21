@@ -19,6 +19,9 @@ StructureSpawn.prototype.spawnCreeps = function () {
                         this.createClaimer(this.memory.claimRoom);
                     }
                     break;
+                case 'defender':
+                    this.createDefender();
+                    break;
                 default:
                     this.buildCreep(this.room.energyAvailable, role.name);
                     break;
@@ -28,6 +31,20 @@ StructureSpawn.prototype.spawnCreeps = function () {
         }
     }
 };
+
+StructureSpawn.prototype.createDefender = function () {
+    let role = 'defender';
+
+    this.spawnCreep(
+        [MOVE, MOVE, MOVE, MOVE, ATTACK, TOUGH, TOUGH],
+        role + Game.time,
+        {
+            memory: {
+                role: role
+            }
+        }
+    );
+}
 
 StructureSpawn.prototype.createClaimer = function (target) {
     let role = 'claimer';

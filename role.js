@@ -1,4 +1,7 @@
 module.exports = [{
+    name: 'defender',
+    limit: 2
+}, {
     name: 'harvester',
     limit: 4
 }, {
