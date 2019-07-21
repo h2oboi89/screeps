@@ -6,7 +6,7 @@ module.exports = [{
     limit: 2
 }, {
     name: 'builder',
-    limit: 4
+    limit: 2
 }, {
     name: 'repairer',
     limit: 2
