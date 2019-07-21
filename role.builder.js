@@ -1,7 +1,7 @@
 var upgrade = require('role.upgrader');
 
 module.exports = function (creep) {
-    if (creep.room.name != creep.memory.target) {
+    if (creep.memory.target !== undefined && creep.room.name != creep.memory.target) {
         var exit = creep.room.findExitTo(creep.memory.target);
         creep.moveTo(creep.pos.findClosestByRange(exit));
     }
